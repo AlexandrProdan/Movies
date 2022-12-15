@@ -2,6 +2,7 @@ package com.example.movies10;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         Drawable drawable = ContextCompat.getDrawable(holder.itemView.getContext(), backgroundId);
         holder.textViewRating.setBackground(drawable);
         holder.textViewRating.setText(String.format("%.1f",rating));
+
+        Log.d("Adapter", "onBindViewHolder: test");
     }
 
     @Override
