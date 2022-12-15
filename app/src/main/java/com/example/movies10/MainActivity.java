@@ -24,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerViewMovies = findViewById(R.id.RecyclerViewMovies);
         moviesAdapter = new MoviesAdapter();
+        moviesAdapter.setOnReachEndListener(new MoviesAdapter.OnReachEndListener() {
+            @Override
+            public void onReachEnd() {
+                mainViewModel.loadMovies();
+            }
+        });
 
         recyclerViewMovies.setAdapter(moviesAdapter);
         recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
@@ -36,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mainViewModel.loadMovies();
+
+
 
     }
 }

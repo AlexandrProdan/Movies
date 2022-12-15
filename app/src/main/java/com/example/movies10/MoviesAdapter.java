@@ -22,6 +22,13 @@ import java.util.List;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>{
 
     private List<Movie> moviesList = new ArrayList<>();
+    private  OnReachEndListener onReachEndListener;
+    static int i = 0;
+    static int j = 0;
+
+    public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
+        this.onReachEndListener = onReachEndListener;
+    }
 
     public void setMoviesList(List<Movie> moviesList) {
         this.moviesList = moviesList;
@@ -31,12 +38,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     @NonNull
     @Override
     public MoviesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        i++;
+        Log.d("Adapter", "onCreateViewHolder: " + i);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
         return new MoviesViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MoviesViewHolder holder, int position) {
+        j++;
+        Log.d("Adapter", "onBindViewHolder: "+ j);
+
         Movie movie = moviesList.get(position);
         Glide.with(holder.itemView)
                 .load(movie.getPoster().getUrl())
@@ -48,7 +60,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         holder.textViewRating.setBackground(drawable);
         holder.textViewRating.setText(String.format("%.1f",rating));
 
-        Log.d("Adapter", "onBindViewHolder: test");
+        if ((position == (moviesList.size()-2)) && (onReachEndListener != null)){
+            onReachEndListener.onReachEnd();
+        }
     }
 
     @Override
@@ -66,6 +80,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
             return background = R.drawable.circle_red;
         }
     }
+
+
+    interface OnReachEndListener{ public void onReachEnd();}
 
     static class MoviesViewHolder extends RecyclerView.ViewHolder {
         private final ImageView imageViewPoster;
