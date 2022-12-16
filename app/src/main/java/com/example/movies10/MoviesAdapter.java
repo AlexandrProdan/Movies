@@ -60,7 +60,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         holder.textViewRating.setBackground(drawable);
         holder.textViewRating.setText(String.format("%.1f",rating));
 
-        if ((position == (moviesList.size()-2)) && (onReachEndListener != null)){
+        if ((position >= (moviesList.size()-10)) && (onReachEndListener != null)){
             onReachEndListener.onReachEnd();
         }
     }

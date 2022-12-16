@@ -2,6 +2,7 @@ package com.example.movies10;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -13,14 +14,16 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    MainViewModel mainViewModel;
-    RecyclerView recyclerViewMovies;
-    MoviesAdapter moviesAdapter;
+
+    private MainViewModel mainViewModel;
+    private RecyclerView recyclerViewMovies;
+    private MoviesAdapter moviesAdapter;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        initViews();
 
         recyclerViewMovies = findViewById(R.id.RecyclerViewMovies);
         moviesAdapter = new MoviesAdapter();
@@ -41,9 +44,23 @@ public class MainActivity extends AppCompatActivity {
                 moviesAdapter.setMoviesList(movies);
             }
         });
-        mainViewModel.loadMovies();
+
+        mainViewModel.getIsLoading().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isLoading) {
+                if(isLoading){
+                    progressBar.setVisibility(ProgressBar.VISIBLE);
+                }else {
+                    progressBar.setVisibility(ProgressBar.INVISIBLE);
+                }
+            }
+        });
 
 
+    }
 
+     void initViews() {
+        setContentView(R.layout.activity_main);
+        progressBar = findViewById(R.id.ProgressBar);
     }
 }
