@@ -1,7 +1,7 @@
 package com.example.movies10;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         recyclerViewMovies.setAdapter(moviesAdapter);
         recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
 
@@ -53,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     progressBar.setVisibility(ProgressBar.INVISIBLE);
                 }
+            }
+        });
+
+        moviesAdapter.setOnMovieClickListener(new MoviesAdapter.OnMovieClickListener() {
+            @Override
+            public void onMovieClick(Movie movie) {
+                Intent intent = MovieDetailedActivity.newIntent(MainActivity.this, movie);
+                startActivity(intent);
             }
         });
 

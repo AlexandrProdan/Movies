@@ -1,6 +1,5 @@
 package com.example.movies10;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +21,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 
     private List<Movie> moviesList = new ArrayList<>();
     private  OnReachEndListener onReachEndListener;
+    private OnMovieClickListener onMovieClickListener;
+
     static int i = 0;
     static int j = 0;
+
+    public void setOnMovieClickListener(OnMovieClickListener onPosterTouchListener) {
+        this.onMovieClickListener = onPosterTouchListener;
+    }
 
     public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
         this.onReachEndListener = onReachEndListener;
@@ -63,6 +67,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         if ((position >= (moviesList.size()-10)) && (onReachEndListener != null)){
             onReachEndListener.onReachEnd();
         }
+
+        holder.imageViewPoster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onMovieClickListener!= null){
+                    onMovieClickListener.onMovieClick(movie);
+                }
+            }
+        });
     }
 
     @Override
@@ -83,6 +96,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 
 
     interface OnReachEndListener{ public void onReachEnd();}
+    interface OnMovieClickListener {public void onMovieClick(Movie movie);}
+
 
     static class MoviesViewHolder extends RecyclerView.ViewHolder {
         private final ImageView imageViewPoster;
@@ -94,4 +109,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
             textViewRating = itemView.findViewById(R.id.TextViewRating);
         }
     }
+
+
 }
