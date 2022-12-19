@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -48,6 +49,15 @@ public class MovieDetailedActivity extends AppCompatActivity {
 
         recyclerViewTrailer.setAdapter(trailerAdapter);
 
+        trailerAdapter.setOnTrailerClickListener(new TrailerAdapter.OnTrailerClickListener() {
+            @Override
+            public void onTrailerClick(Trailer trailer) {
+                Intent intent =new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(trailer.getUrl()));
+                startActivity(intent);
+            }
+        });
+
         Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
         textViewTitle.setText(movie.getName());
         textViewYear.setText(String.valueOf(movie.getYear()));
@@ -65,7 +75,6 @@ public class MovieDetailedActivity extends AppCompatActivity {
                 Log.d(TAG, trailers.toString());
             }
         });
-
 
     }
 //==================================================================================================
