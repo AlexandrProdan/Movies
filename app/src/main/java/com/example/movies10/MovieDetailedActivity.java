@@ -33,6 +33,7 @@ public class MovieDetailedActivity extends AppCompatActivity {
     TextView textViewYear;
     TextView textViewDescription;
     MovieDetailViewModel movieDetailViewModel;
+    TrailerAdapter trailerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +55,12 @@ public class MovieDetailedActivity extends AppCompatActivity {
         movieDetailViewModel.getTrailers().observe(this, new Observer<List<Trailer>>() {
             @Override
             public void onChanged(List<Trailer> trailers) {
+                trailerAdapter.setTrailers(trailers);
                 Log.d(TAG, trailers.toString());
             }
         });
+
+
     }
 //==================================================================================================
     private void initViews(){

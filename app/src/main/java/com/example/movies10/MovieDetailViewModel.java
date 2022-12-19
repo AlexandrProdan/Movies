@@ -14,6 +14,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MovieDetailViewModel extends AndroidViewModel {
@@ -34,10 +35,16 @@ public class MovieDetailViewModel extends AndroidViewModel {
         Disposable disposable = APIFactory.apiService.loadTrailers(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<TrailerResponse>() {
+                .map(new Function<TrailerResponse, List<Trailer>>() {
                     @Override
-                    public void accept(TrailerResponse trailerResponse) throws Throwable {
-                        trailers.setValue(trailerResponse.getTrailers().getTrailersList());
+                    public List<Trailer> apply(TrailerResponse trailerResponse) throws Throwable {
+                        return trailerResponse.getTrailers().getTrailersList();
+                    }
+                })
+                .subscribe(new Consumer<List<Trailer>>() {
+                    @Override
+                    public void accept(List<Trailer> trailerList) throws Throwable {
+                        trailers.setValue(trailerList);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
