@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardViewTrailer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <Button
-        android:id="@+id/playTrailerButton"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardBackgroundColor="@color/purple_500"
+    app:cardCornerRadius="8dp"
+    app:cardUseCompatPadding="true"
+    android:layout_margin="4dp">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Trailer Name"
-        android:layout_margin="16dp"
-        android:textAlignment="textEnd"
-        app:icon="@android:drawable/ic_media_play"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        android:gravity="center">
+        <TextView
+            android:id="@+id/trailerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            tools:text="Trailer"
+            />
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/imageViewPlay"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:srcCompat="@android:drawable/ic_media_play" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

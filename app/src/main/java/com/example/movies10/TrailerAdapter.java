@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerViewHolder> {
-    List<Trailer> trailers = new ArrayList<>();
+    private List<Trailer> trailers = new ArrayList<>();
 
     public void setTrailers(List<Trailer> trailers) {
         this.trailers = trailers;
@@ -38,11 +39,11 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     }
 
     static class TrailerViewHolder extends RecyclerView.ViewHolder{
-        Button trailerName;
+        TextView trailerName;
 
         public TrailerViewHolder(@NonNull View itemView) {
             super(itemView);
-            trailerName = itemView.findViewById(R.id.playTrailerButton);
+            trailerName = itemView.findViewById(R.id.trailerName);
         }
     }
 }

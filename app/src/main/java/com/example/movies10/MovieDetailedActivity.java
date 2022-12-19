@@ -3,6 +3,7 @@ package com.example.movies10;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,21 +27,26 @@ public class MovieDetailedActivity extends AppCompatActivity {
     private static final String EXTRA_MOVIE = "movie";
     public static final String TAG = "MovieDetailedActivity";
 
-    ScrollView scrollView;
-    LinearLayout linearLayout;
     ImageView imageViewPoster;
     TextView textViewTitle;
     TextView textViewYear;
     TextView textViewDescription;
     MovieDetailViewModel movieDetailViewModel;
     TrailerAdapter trailerAdapter;
+    RecyclerView recyclerViewTrailer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detailed);
+
         movieDetailViewModel = new ViewModelProvider(this).get(MovieDetailViewModel.class);
+
         initViews();
+
+        trailerAdapter = new TrailerAdapter();
+
+        recyclerViewTrailer.setAdapter(trailerAdapter);
 
         Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
         textViewTitle.setText(movie.getName());
@@ -68,6 +74,7 @@ public class MovieDetailedActivity extends AppCompatActivity {
         textViewTitle = findViewById(R.id.textViewTitle);
         textViewYear = findViewById(R.id.textViewYear);
         textViewDescription = findViewById(R.id.textViewDescription);
+        recyclerViewTrailer= findViewById(R.id.recyclerViewTrailers);
     }
 
     public static Intent newIntent(Context context, Movie movie){
