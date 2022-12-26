@@ -58,7 +58,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
                 .load(movie.getPoster().getUrl())
                 .into(holder.imageViewPoster);
 
-        double rating = movie.getRating().getKp();
+        float rating = movie.getRating().getKp();
         int backgroundId = getBackgroundByRating(rating);
         Drawable drawable = ContextCompat.getDrawable(holder.itemView.getContext(), backgroundId);
         holder.textViewRating.setBackground(drawable);
@@ -83,7 +83,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         return moviesList.size();
     }
 
-    int getBackgroundByRating(double rating){
+    int getBackgroundByRating(float rating){
         int background;
         if(rating > 7){
             return background = R.drawable.circle_green;

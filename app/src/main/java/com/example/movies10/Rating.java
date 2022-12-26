@@ -6,13 +6,13 @@ import java.io.Serializable;
 
 public class Rating implements Serializable {
     @SerializedName("kp")
-    private double kp;
+    private float kp;
 
     public Rating(float kp) {
         this.kp = kp;
     }
 
-    public double getKp() {
+    public float getKp() {
         return kp;
     }
 

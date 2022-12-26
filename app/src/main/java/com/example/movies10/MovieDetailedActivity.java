@@ -37,6 +37,7 @@ public class MovieDetailedActivity extends AppCompatActivity {
     ReviewAdapter reviewAdapter;
     RecyclerView recyclerViewTrailer;
     RecyclerView recyclerViewReview;
+    MovieDAO movieDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,11 @@ public class MovieDetailedActivity extends AppCompatActivity {
                 reviewAdapter.setReviewList(reviews);
             }
         });
+
+        movieDAO = MovieDatabase.getInstance(getApplication()).movieDAO();
+        movieDAO.insertMovie(movie)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
 
     }
 //==================================================================================================
